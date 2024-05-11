@@ -27,6 +27,7 @@ THE SOFTWARE.
          xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form"
          xmlns:i="jelly:fmt" xmlns:p="/lib/hudson/project">
 
+    <j:set var="escapeEntryTitleAndDescription" value="true"/> <!-- SECURITY-353 defense unless overridden -->
     <f:entry title="${it.name}" description="${it.description}">
         <!-- this div is required because of ParametersDefinitionProperty.java#117 -->
         <div name="parameter" description="${it.description}">
