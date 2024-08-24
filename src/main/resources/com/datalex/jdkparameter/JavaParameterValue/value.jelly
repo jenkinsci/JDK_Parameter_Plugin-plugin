@@ -23,6 +23,7 @@ THE SOFTWARE.
 -->
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
+    <j:set var="escapeEntryTitleAndDescription" value="true"/> <!-- SECURITY-353 defense unless overridden -->
     <f:entry title="${it.name}" description="${it.description}">
         <f:textbox name="selectedJDK" value="${it.selectedJDK}" readonly="true" />
     </f:entry>
