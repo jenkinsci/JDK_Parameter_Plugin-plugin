@@ -35,19 +35,6 @@
 		<jenkins.version>${jenkins.baseline}.4</jenkins.version>
 	</properties>
 
-    <developers>
-        <developer>
-            <id>baris_batiege</id>
-            <name>Baris Batiege</name>
-            <email>baris.batiege@datalex.com</email>
-        </developer>
-        <developer>
-	   <id>fneves</id>
-	   <name>Fabio Neves</name>
-	   <email>fabio.neves@datalex.com</email>
-	</developer>
-	</developers>
-
 	<repositories>
 		<repository>
 			<id>repo.jenkins-ci.org</id>
