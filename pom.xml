@@ -14,7 +14,6 @@
 	<version>1.3-SNAPSHOT</version>
     <name>JDK Parameter Plugin</name>
 	<packaging>hpi</packaging>
-	<description>This plugin allows you to specify what JDK should be used for a job at the build parameters stage.</description>
 	<url>https://wiki.jenkins-ci.org/display/JENKINS/JDK+Parameter+Plugin</url>
 
     <licenses>
