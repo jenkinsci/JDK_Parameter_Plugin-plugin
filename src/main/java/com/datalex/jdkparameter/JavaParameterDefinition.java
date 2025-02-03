@@ -6,7 +6,7 @@ import hudson.model.ParameterDefinition;
 import hudson.model.ParameterValue;
 import net.sf.json.JSONObject;
 import org.kohsuke.stapler.DataBoundConstructor;
-import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerRequest2;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -135,14 +135,14 @@ public class JavaParameterDefinition extends ParameterDefinition {
 
 
     @Override
-    public ParameterValue createValue(StaplerRequest req, JSONObject jo) {
+    public ParameterValue createValue(StaplerRequest2 req, JSONObject jo) {
         final String name = jo.getString("name");
         final String selectedJDK = jo.getString("selectedJDK");
         return  new JavaParameterValue(name, getDescription(), selectedJDK);
     }
 
     @Override
-    public ParameterValue createValue(StaplerRequest req) {
+    public ParameterValue createValue(StaplerRequest2 req) {
         String name = (String)req.getAttribute("name");
         String selectedJDK = (String)req.getAttribute("selectedJDK");
         return new JavaParameterValue(name, getDescription(), selectedJDK);
