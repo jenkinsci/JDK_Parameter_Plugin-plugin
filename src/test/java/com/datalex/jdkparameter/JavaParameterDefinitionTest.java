@@ -6,71 +6,72 @@ import static org.hamcrest.Matchers.hasItems;
 
 import hudson.model.JDK;
 import java.util.List;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.jvnet.hudson.test.JenkinsRule;
+import org.jvnet.hudson.test.junit.jupiter.WithJenkins;
 
-public class JavaParameterDefinitionTest {
+@WithJenkins
+class JavaParameterDefinitionTest {
 
-    @Rule
-    public JenkinsRule j = new JenkinsRule();
+    private static final JDK JDK_11 = new JDK("jdk-11", "/my/jdk/11");
+    private static final JDK JDK_17 = new JDK("jdk-17", "/my/jdk/17");
+    private static final JDK JDK_21 = new JDK("jdk-21", "/my/jdk/21");
+    private static final JDK CURRENT = new JDK("current-jdk", System.getProperty("java.home"));
 
-    private static final JDK jdk11 = new JDK("jdk-11", "/my/jdk/11");
-    private static final JDK jdk17 = new JDK("jdk-17", "/my/jdk/17");
-    private static final JDK jdk21 = new JDK("jdk-21", "/my/jdk/21");
-    private static final JDK current = new JDK("current-jdk", System.getProperty("java.home"));
+    private JenkinsRule j;
 
-    @Before
-    public void configureJDKs() throws Exception {
-        j.jenkins.setJDKs(List.of(jdk11, jdk17, jdk21, current));
+    @BeforeEach
+    void setUp(JenkinsRule rule) {
+        j = rule;
+        j.jenkins.setJDKs(List.of(JDK_11, JDK_17, JDK_21, CURRENT));
     }
 
     @Test
-    public void testGetJDKNames() {
+    void testGetJDKNames() {
         assertThat(
                 JavaParameterDefinition.getJDKNames(),
                 containsInAnyOrder(
-                        jdk11.getName(),
-                        jdk17.getName(),
-                        jdk21.getName(),
-                        current.getName(),
+                        JDK_11.getName(),
+                        JDK_17.getName(),
+                        JDK_21.getName(),
+                        CURRENT.getName(),
                         JavaParameterDefinition.ALL_JDK,
                         JavaParameterDefinition.DEFAULT_JDK));
     }
 
     @Test
-    public void testGetJDKNamesDefault() {
+    void testGetJDKNamesDefault() {
         assertThat(
                 JavaParameterDefinition.getJDKNamesDefault(),
                 containsInAnyOrder(
-                        jdk11.getName(),
-                        jdk17.getName(),
-                        jdk21.getName(),
-                        current.getName(),
+                        JDK_11.getName(),
+                        JDK_17.getName(),
+                        JDK_21.getName(),
+                        CURRENT.getName(),
                         JavaParameterDefinition.DEFAULT_JDK));
     }
 
     @Test
-    public void testGetJDKSasStrings() {
+    void testGetJDKSasStrings() {
         assertThat(
                 JavaParameterDefinition.getJDKSasStrings(),
-                containsInAnyOrder(jdk11.getName(), jdk17.getName(), jdk21.getName(), current.getName()));
+                containsInAnyOrder(JDK_11.getName(), JDK_17.getName(), JDK_21.getName(), CURRENT.getName()));
     }
 
     @Test
-    public void testGetAllowedJDKs() {
-        List<String> allowedJDKs = List.of(jdk11.getName());
+    void testGetAllowedJDKs() {
+        List<String> allowedJDKs = List.of(JDK_11.getName());
         JavaParameterDefinition param =
-                new JavaParameterDefinition(jdk11.getName(), "JDK 11", current.getName(), allowedJDKs);
-        assertThat(param.getAllowedJDKs(), containsInAnyOrder(jdk11.getName()));
+                new JavaParameterDefinition(JDK_11.getName(), "JDK 11", CURRENT.getName(), allowedJDKs);
+        assertThat(param.getAllowedJDKs(), containsInAnyOrder(JDK_11.getName()));
     }
 
     @Test
-    public void testGetAllowedJDKsWithAllJDKs() {
-        List<String> allowedJDKs = List.of(jdk17.getName(), JavaParameterDefinition.ALL_JDK);
+    void testGetAllowedJDKsWithAllJDKs() {
+        List<String> allowedJDKs = List.of(JDK_17.getName(), JavaParameterDefinition.ALL_JDK);
         JavaParameterDefinition param =
-                new JavaParameterDefinition(jdk11.getName(), "JDK 11", current.getName(), allowedJDKs);
+                new JavaParameterDefinition(JDK_11.getName(), "JDK 11", CURRENT.getName(), allowedJDKs);
         assertThat(param.getAllowedJDKs(), hasItems(JavaParameterDefinition.ALL_JDK));
     }
 }
