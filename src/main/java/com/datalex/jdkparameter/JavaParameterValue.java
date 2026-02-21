@@ -4,10 +4,9 @@ import hudson.model.AbstractBuild;
 import hudson.model.JDK;
 import hudson.model.ParameterValue;
 import hudson.tasks.BuildWrapper;
-import org.kohsuke.stapler.DataBoundConstructor;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.kohsuke.stapler.DataBoundConstructor;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,7 +22,7 @@ public class JavaParameterValue extends ParameterValue {
     private String selectedJDK;
 
     @DataBoundConstructor
-    public JavaParameterValue(String name, String description, String selectedJDK){
+    public JavaParameterValue(String name, String description, String selectedJDK) {
         super(name, description);
         this.selectedJDK = selectedJDK;
     }
@@ -37,26 +36,28 @@ public class JavaParameterValue extends ParameterValue {
     }
 
     @Override
-    public BuildWrapper createBuildWrapper(AbstractBuild<?,?> build) {
+    public BuildWrapper createBuildWrapper(AbstractBuild<?, ?> build) {
         JDK selected = null;
         String originalJDK = null;
         boolean jdkIsAvailable = false;
-        selected = new JDK(JavaParameterDefinition.DEFAULT_JDK,null);
+        selected = new JDK(JavaParameterDefinition.DEFAULT_JDK, null);
 
-        for(JDK jdk : jenkins.model.Jenkins.getInstance().getJDKs()) {
-            if(jdk.getName().equalsIgnoreCase(selectedJDK))  {
+        for (JDK jdk : jenkins.model.Jenkins.getInstance().getJDKs()) {
+            if (jdk.getName().equalsIgnoreCase(selectedJDK)) {
                 selected = jdk;
                 jdkIsAvailable = true;
                 break;
             }
         }
 
-        if (selectedJDK.equals(JavaParameterDefinition.DEFAULT_JDK)){
+        if (selectedJDK.equals(JavaParameterDefinition.DEFAULT_JDK)) {
             jdkIsAvailable = true;
         }
 
         try {
-            originalJDK = build.getProject().getJDK() == null ? JavaParameterDefinition.DEFAULT_JDK : build.getProject().getJDK().getName();
+            originalJDK = build.getProject().getJDK() == null
+                    ? JavaParameterDefinition.DEFAULT_JDK
+                    : build.getProject().getJDK().getName();
             build.getProject().setJDK(selected);
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "[JDK Parameter]: Could not set the JDK", e);
@@ -66,7 +67,4 @@ public class JavaParameterValue extends ParameterValue {
         wrapper.setJdkIsAvailable(jdkIsAvailable);
         return wrapper;
     }
-
 }
-
-
