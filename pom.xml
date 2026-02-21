@@ -13,7 +13,7 @@
 	<version>1.4-SNAPSHOT</version>
     <name>JDK Parameter Plugin</name>
 	<packaging>hpi</packaging>
-	<url>https://wiki.jenkins-ci.org/display/JENKINS/JDK+Parameter+Plugin</url>
+	<url>https://github.com/jenkinsci/JDK_Parameter_Plugin-plugin</url>
 
     <licenses>
         <license>
