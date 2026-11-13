@@ -36,6 +36,11 @@ public class JavaParameterValue extends ParameterValue {
     }
 
     @Override
+    public String getValue() {
+        return selectedJDK;
+    }
+
+    @Override
     public BuildWrapper createBuildWrapper(AbstractBuild<?, ?> build) {
         JDK selected = null;
         String originalJDK = null;

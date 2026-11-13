@@ -45,6 +45,13 @@ class JavaParameterValueTest {
     }
 
     @Test
+    void testGetValue() {
+        String selectedJDK = JDK_17.getName();
+        JavaParameterValue value = new JavaParameterValue("JDK_NAME", "JDK 17 description", selectedJDK);
+        assertThat(value.getValue(), is(selectedJDK));
+    }
+
+    @Test
     void testSetSelectedJDK() {
         String selectedJDK = JDK_17.getName();
         JavaParameterValue value = new JavaParameterValue("JDK_NAME", "JDK 17 description", selectedJDK);
